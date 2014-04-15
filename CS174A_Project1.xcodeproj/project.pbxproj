@@ -7,7 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9FB8647318FC569000F55072 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FB8647218FC569000F55072 /* main.cpp */; };
+		9F8B7FDD18FD1470000A6EC2 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8B7FDC18FD1470000A6EC2 /* OpenGL.framework */; };
+		9F8B7FDF18FD1478000A6EC2 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8B7FDE18FD1478000A6EC2 /* GLUT.framework */; };
+		9F8B7FFA18FD1639000A6EC2 /* anim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B7FE618FD1639000A6EC2 /* anim.cpp */; };
+		9F8B7FFB18FD1639000A6EC2 /* Ball.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B7FE718FD1639000A6EC2 /* Ball.cxx */; };
+		9F8B7FFC18FD1639000A6EC2 /* BallAux.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B7FE918FD1639000A6EC2 /* BallAux.cxx */; };
+		9F8B7FFD18FD1639000A6EC2 /* BallMath.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B7FEB18FD1639000A6EC2 /* BallMath.cxx */; };
+		9F8B7FFE18FD1639000A6EC2 /* FrameSaver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B7FED18FD1639000A6EC2 /* FrameSaver.cpp */; };
+		9F8B7FFF18FD1639000A6EC2 /* InitShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B7FF018FD1639000A6EC2 /* InitShader.cpp */; };
+		9F8B800018FD1639000A6EC2 /* Shapes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B7FF218FD1639000A6EC2 /* Shapes.cpp */; };
+		9F8B800118FD1639000A6EC2 /* tga.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B7FF418FD1639000A6EC2 /* tga.cpp */; };
+		9F8B800218FD1639000A6EC2 /* Timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9F8B7FF618FD1639000A6EC2 /* Timer.cpp */; };
 		9FB8647518FC569000F55072 /* CS174A_Project1.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9FB8647418FC569000F55072 /* CS174A_Project1.1 */; };
 /* End PBXBuildFile section */
 
@@ -25,8 +35,32 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9F8B7FDC18FD1470000A6EC2 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		9F8B7FDE18FD1478000A6EC2 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		9F8B7FE118FD1639000A6EC2 /* Angel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Angel.h; sourceTree = "<group>"; };
+		9F8B7FE218FD1639000A6EC2 /* CheckError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckError.h; sourceTree = "<group>"; };
+		9F8B7FE418FD1639000A6EC2 /* mat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mat.h; sourceTree = "<group>"; };
+		9F8B7FE518FD1639000A6EC2 /* vec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vec.h; sourceTree = "<group>"; };
+		9F8B7FE618FD1639000A6EC2 /* anim.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = anim.cpp; sourceTree = "<group>"; };
+		9F8B7FE718FD1639000A6EC2 /* Ball.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ball.cxx; sourceTree = "<group>"; };
+		9F8B7FE818FD1639000A6EC2 /* Ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ball.h; sourceTree = "<group>"; };
+		9F8B7FE918FD1639000A6EC2 /* BallAux.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BallAux.cxx; sourceTree = "<group>"; };
+		9F8B7FEA18FD1639000A6EC2 /* BallAux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BallAux.h; sourceTree = "<group>"; };
+		9F8B7FEB18FD1639000A6EC2 /* BallMath.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BallMath.cxx; sourceTree = "<group>"; };
+		9F8B7FEC18FD1639000A6EC2 /* BallMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BallMath.h; sourceTree = "<group>"; };
+		9F8B7FED18FD1639000A6EC2 /* FrameSaver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameSaver.cpp; sourceTree = "<group>"; };
+		9F8B7FEE18FD1639000A6EC2 /* FrameSaver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameSaver.h; sourceTree = "<group>"; };
+		9F8B7FEF18FD1639000A6EC2 /* fshader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fshader.glsl; sourceTree = "<group>"; };
+		9F8B7FF018FD1639000A6EC2 /* InitShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InitShader.cpp; sourceTree = "<group>"; };
+		9F8B7FF118FD1639000A6EC2 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		9F8B7FF218FD1639000A6EC2 /* Shapes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shapes.cpp; sourceTree = "<group>"; };
+		9F8B7FF318FD1639000A6EC2 /* Shapes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shapes.h; sourceTree = "<group>"; };
+		9F8B7FF418FD1639000A6EC2 /* tga.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tga.cpp; sourceTree = "<group>"; };
+		9F8B7FF518FD1639000A6EC2 /* tga.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tga.h; sourceTree = "<group>"; };
+		9F8B7FF618FD1639000A6EC2 /* Timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Timer.cpp; sourceTree = "<group>"; };
+		9F8B7FF718FD1639000A6EC2 /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
+		9F8B7FF818FD1639000A6EC2 /* vshader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vshader.glsl; sourceTree = "<group>"; };
 		9FB8646F18FC569000F55072 /* CS174A_Project1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CS174A_Project1; sourceTree = BUILT_PRODUCTS_DIR; };
-		9FB8647218FC569000F55072 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		9FB8647418FC569000F55072 /* CS174A_Project1.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = CS174A_Project1.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -35,15 +69,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F8B7FDF18FD1478000A6EC2 /* GLUT.framework in Frameworks */,
+				9F8B7FDD18FD1470000A6EC2 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9F8B7FE018FD1639000A6EC2 /* Angel */ = {
+			isa = PBXGroup;
+			children = (
+				9F8B7FE118FD1639000A6EC2 /* Angel.h */,
+				9F8B7FE218FD1639000A6EC2 /* CheckError.h */,
+				9F8B7FE418FD1639000A6EC2 /* mat.h */,
+				9F8B7FE518FD1639000A6EC2 /* vec.h */,
+			);
+			path = Angel;
+			sourceTree = "<group>";
+		};
 		9FB8646618FC569000F55072 = {
 			isa = PBXGroup;
 			children = (
+				9F8B7FDE18FD1478000A6EC2 /* GLUT.framework */,
+				9F8B7FDC18FD1470000A6EC2 /* OpenGL.framework */,
 				9FB8647118FC569000F55072 /* CS174A_Project1 */,
 				9FB8647018FC569000F55072 /* Products */,
 			);
@@ -60,7 +109,26 @@
 		9FB8647118FC569000F55072 /* CS174A_Project1 */ = {
 			isa = PBXGroup;
 			children = (
-				9FB8647218FC569000F55072 /* main.cpp */,
+				9F8B7FE018FD1639000A6EC2 /* Angel */,
+				9F8B7FE618FD1639000A6EC2 /* anim.cpp */,
+				9F8B7FE718FD1639000A6EC2 /* Ball.cxx */,
+				9F8B7FE818FD1639000A6EC2 /* Ball.h */,
+				9F8B7FE918FD1639000A6EC2 /* BallAux.cxx */,
+				9F8B7FEA18FD1639000A6EC2 /* BallAux.h */,
+				9F8B7FEB18FD1639000A6EC2 /* BallMath.cxx */,
+				9F8B7FEC18FD1639000A6EC2 /* BallMath.h */,
+				9F8B7FED18FD1639000A6EC2 /* FrameSaver.cpp */,
+				9F8B7FEE18FD1639000A6EC2 /* FrameSaver.h */,
+				9F8B7FEF18FD1639000A6EC2 /* fshader.glsl */,
+				9F8B7FF018FD1639000A6EC2 /* InitShader.cpp */,
+				9F8B7FF118FD1639000A6EC2 /* README.txt */,
+				9F8B7FF218FD1639000A6EC2 /* Shapes.cpp */,
+				9F8B7FF318FD1639000A6EC2 /* Shapes.h */,
+				9F8B7FF418FD1639000A6EC2 /* tga.cpp */,
+				9F8B7FF518FD1639000A6EC2 /* tga.h */,
+				9F8B7FF618FD1639000A6EC2 /* Timer.cpp */,
+				9F8B7FF718FD1639000A6EC2 /* Timer.h */,
+				9F8B7FF818FD1639000A6EC2 /* vshader.glsl */,
 				9FB8647418FC569000F55072 /* CS174A_Project1.1 */,
 			);
 			path = CS174A_Project1;
@@ -117,7 +185,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FB8647318FC569000F55072 /* main.cpp in Sources */,
+				9F8B7FFD18FD1639000A6EC2 /* BallMath.cxx in Sources */,
+				9F8B7FFC18FD1639000A6EC2 /* BallAux.cxx in Sources */,
+				9F8B7FFF18FD1639000A6EC2 /* InitShader.cpp in Sources */,
+				9F8B7FFB18FD1639000A6EC2 /* Ball.cxx in Sources */,
+				9F8B800218FD1639000A6EC2 /* Timer.cpp in Sources */,
+				9F8B800018FD1639000A6EC2 /* Shapes.cpp in Sources */,
+				9F8B7FFE18FD1639000A6EC2 /* FrameSaver.cpp in Sources */,
+				9F8B800118FD1639000A6EC2 /* tga.cpp in Sources */,
+				9F8B7FFA18FD1639000A6EC2 /* anim.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +303,7 @@
 				9FB8647A18FC569000F55072 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
