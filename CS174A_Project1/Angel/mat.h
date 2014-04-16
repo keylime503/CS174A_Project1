@@ -641,7 +641,15 @@ mat4 RotateXYZ( const GLfloat thetaX, const GLfloat thetaY, const GLfloat thetaZ
         mat4 c;
        
         //Implement your composite matrix here
-        
+        c[0][0] = cos(angleY) * cos(angleZ);
+        c[0][1] = (cos(angleZ) * sin(angleX) * sin(angleY)) - (cos(angleX) * sin(angleZ));
+        c[0][2] = (cos(angleX) * cos(angleZ) * sin(angleY)) + (sin(angleX) *  sin(angleZ));
+        c[1][0] = cos(angleY) * sin(angleZ);
+        c[1][1] = (cos(angleX) * cos(angleZ)) + (sin(angleX) * sin(angleY) * sin(angleZ));
+        c[1][2] = - (cos(angleZ) * sin(angleX)) + (cos(angleX) * sin(angleY) * sin(angleZ));
+        c[2][0] = - (sin(angleY));
+        c[2][1] = cos(angleY) * sin(angleX);
+        c[2][2] = cos(angleX) * cos(angleY);
         
         //Your implementation ends here
         return c;
