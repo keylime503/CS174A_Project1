@@ -65,6 +65,10 @@ point4 vertices[8] = {
     // other 4 corners/vertices are missing
     // specify them here
     
+    point4( -0.5, -0.5,  -0.5, 1.0 ),
+    point4( -0.5,  0.5,  -0.5, 1.0 ),
+    point4(  0.5,  0.5,  -0.5, 1.0 ),
+    point4(  0.5, -0.5,  -0.5, 1.0 ),
     
     //end
 
@@ -108,6 +112,11 @@ void colorcube()
     // other 5 faces are missing
     // specify them here
     
+    quad( 2, 3, 7, 6, point3( 1.0f,  0.0f,  0.0f) );
+    quad( 6, 7, 4, 5, point3( 0.0f,  0.0f,  -1.0f) );
+    quad( 5, 4, 0, 1, point3( -1.0f,  0.0f,  0.0f) );
+    quad( 5, 1, 2, 6, point3( 0.0f,  0.0f,  1.0f) );
+    quad( 4, 0, 3, 7, point3( 0.0f,  0.0f,  -1.0f) );
     
     //end
 }
