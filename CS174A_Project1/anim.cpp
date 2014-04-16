@@ -253,7 +253,7 @@ void myinit(void)
     uProjection = glGetUniformLocation( program, "Projection" );
     uView       = glGetUniformLocation( program, "View"       );
     
-    glClearColor( 0.1, 0.1, 0.2, 1.0 ); // dark blue background
+    glClearColor( 1.0, 1.0, 1.0, 1.0 ); // white background
     
     uAmbient   = glGetUniformLocation( program, "AmbientProduct"  );
     uDiffuse   = glGetUniformLocation( program, "DiffuseProduct"  );
