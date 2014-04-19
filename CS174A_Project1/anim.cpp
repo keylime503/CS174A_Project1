@@ -587,7 +587,7 @@ void display(void)
     
     // 1 thing on stack at this point
     
-    // model bee legs
+    /* model bee legs */
     model_trans = mvstack.pop();
     mvstack.push(model_trans); // save copy of model_trans at bee body center
     
@@ -607,6 +607,28 @@ void display(void)
     drawLeg(view_trans);
     model_trans = mvstack.pop();
     mvstack.push(model_trans); // put bee body center trans back on stack
+    
+    model_trans = mvstack.pop();
+    model_trans *= ReflectXY(); // Reflect over XY plane for other three bee legs
+    mvstack.push(model_trans);
+    
+    mvstack.push(model_trans);
+    drawLeg(view_trans);
+    model_trans = mvstack.pop();
+    mvstack.push(model_trans); // put bee body center trans back on stack
+    
+    model_trans *= Translate(-0.25, 0, 0);
+    mvstack.push(model_trans);
+    drawLeg(view_trans);
+    model_trans = mvstack.pop();
+    mvstack.push(model_trans); // put bee body center trans back on stack
+    
+    model_trans *= Translate(0.25, 0, 0);
+    mvstack.push(model_trans);
+    drawLeg(view_trans);
+    model_trans = mvstack.pop();
+    mvstack.push(model_trans); // put bee body center trans back on stack
+
     
     /*
      Generic modeling code
