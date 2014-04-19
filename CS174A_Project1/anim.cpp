@@ -569,6 +569,7 @@ void display(void)
 
     // calculate bee offsets as a function of TIME
     float beeXOffset = - sinTime * 5;
+    float beeYOffset = sin(fmod(TIME, 1.0) * 2 * PI);
     float beeZOffset = cosTime * 5;
     
     // calculate bee Y Rotation Angle as a function of TIME
@@ -577,7 +578,7 @@ void display(void)
     
     // model bee body
     model_trans = mvstack.pop();
-    model_trans *= Translate(beeXOffset, 0, beeZOffset);
+    model_trans *= Translate(beeXOffset, beeYOffset, beeZOffset);
     model_trans *= RotateY(beeYRotationAngle);
     mvstack.push(model_trans);
     model_trans *= Scale(1.0, 0.5, 0.5);
