@@ -123,6 +123,16 @@ Angel::vec4 up(0.0,1.0,0.0,0.0);
 
 double TIME = 0.0 ;
 
+/////////////////////////////////////////////////////
+//
+//    My helper functions
+//
+////////////////////////////////////////////////////
+float getRgbFloat(int val) {
+    
+    return (float) val / 256.0;
+}
+
 
 /////////////////////////////////////////////////////
 //    PROC: drawCylinder()
@@ -253,7 +263,7 @@ void myinit(void)
     uProjection = glGetUniformLocation( program, "Projection" );
     uView       = glGetUniformLocation( program, "View"       );
     
-    glClearColor( 0.2, 0.4, 0.0, 1.0 ); // green background
+    glClearColor( getRgbFloat(135), getRgbFloat(206), getRgbFloat(250), 1.0 ); // sky blue background
     
     uAmbient   = glGetUniformLocation( program, "AmbientProduct"  );
     uDiffuse   = glGetUniformLocation( program, "DiffuseProduct"  );
@@ -410,7 +420,6 @@ void myReshape(int w, int h)
     glUniformMatrix4fv( uProjection, 1, GL_TRUE, projection );
 }
 
-
 /*********************************************************
  **********************************************************
  **********************************************************
@@ -457,6 +466,7 @@ void display(void)
    Your drawing/modeling starts here
 ***************************************************************/
     
+    /*
     //model sun
     model_trans *= Scale(1.0);
     model_view = view_trans * model_trans;
@@ -469,7 +479,7 @@ void display(void)
     //model earth
     model_trans *= RotateY(20.0*TIME); //rotation about the sun
     model_trans *= Translate(5.0f, 0.0f, 0.0f);
-    mvstack.push(model_trans); //how the eartch rotates about the sun
+    mvstack.push(model_trans); //how the earth rotates about the sun
                                //will have effect on moon's movement,
                                //so we need to save this transformation on the stack
     
@@ -488,7 +498,40 @@ void display(void)
     model_view = view_trans * model_trans;
     set_colour(0.8f, 0.0f, 0.8f);
     drawCylinder();
+    */
     
+    model_trans = mvstack.pop();//pop, get identity, avoid stack overflow
+    
+    // model ground plane
+    model_trans *= Translate(0, -5, 0);
+    mvstack.push(model_trans);
+    model_trans *= Scale(20, 0.25, 20);
+    model_view = view_trans * model_trans;
+    set_colour(getRgbFloat(1), getRgbFloat(166), getRgbFloat(17)); // forest green color
+    drawCube();
+    
+    // model tree trunk
+    for (int i=0; i < 8; i++) {
+        
+        model_trans = mvstack.pop();
+        model_trans *= Translate(0, 0.75, 0);
+        mvstack.push(model_trans);
+        model_trans *= Scale(0.25, 0.75, 0.25);
+        model_view = view_trans * model_trans;
+        set_colour(getRgbFloat(160), getRgbFloat(82), getRgbFloat(45));
+        drawCube();
+    }
+    
+    // model tree sphere
+    model_trans = mvstack.pop();
+    model_trans *= Translate(0, 1, 0);
+    mvstack.push(model_trans);
+    model_trans *= Scale(1.0);
+    model_view = view_trans * model_trans;
+    set_colour(0.8f, 0.0f, 0.0f);
+    drawSphere();
+    
+    model_trans = mvstack.pop(); // avoid stack overflow
     
 /**************************************************************
      Your drawing/modeling ends here
