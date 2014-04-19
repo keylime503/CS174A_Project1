@@ -74,6 +74,9 @@ typedef char STR[STRLEN];
 #define Y 1
 #define Z 2
 
+//  TwoPi constant
+const GLfloat TwoPI = 2.0 * M_PI;
+
 //texture
 GLuint texture_cube;
 GLuint texture_earth;
@@ -564,17 +567,17 @@ void display(void)
     set_colour(0.8f, 0.0f, 0.0f);
     drawSphere();
     
-    float cosTime = cos(TIME);
-    float sinTime = sin(TIME);
+    float cosTime = cos(TIME / TwoPI);
+    float sinTime = sin(TIME / TwoPI);
 
     // calculate bee offsets as a function of TIME
     float beeXOffset = - sinTime * 5;
-    float beeYOffset = sin(fmod(TIME, 1.0) * 2 * PI);
+    float beeYOffset = sin(fmod((TIME / TwoPI), 1.0) * TwoPI);
     float beeZOffset = cosTime * 5;
     
     // calculate bee Y Rotation Angle as a function of TIME
-    float beeYRotationAngle = fmod((360.0 - (fmod(TIME / (2.0 * PI), 2.0 * PI)) * 360.0), 360);
-    printf("yAngle %f\n", beeYRotationAngle) ;
+    float d = TwoPI * TwoPI;
+    float beeYRotationAngle = fmod((360.0 - (fmod((TIME / d), TwoPI)) * 360.0), 360);
     
     // model bee body
     model_trans = mvstack.pop();
