@@ -420,6 +420,32 @@ void myReshape(int w, int h)
     glUniformMatrix4fv( uProjection, 1, GL_TRUE, projection );
 }
 
+// net 1 pop on mvstack (pop, push, push, pop, pop)
+void drawLeg(mat4 view_trans) {
+    
+    // upper part of leg
+    mat4 model_trans = mvstack.pop();
+    mvstack.push(model_trans); // intentional
+    model_trans *= Translate(0, -0.4375, 0.5);
+    model_trans *= RotateX(45);
+    mvstack.push(model_trans);
+    model_trans *= Scale(0.125, 0.125, 0.5);
+    model_view = view_trans * model_trans;
+    set_colour(getRgbFloat(96), getRgbFloat(96), getRgbFloat(96));
+    drawCube();
+    
+    // lower part of leg
+    model_trans = mvstack.pop();
+    model_trans *= Translate(0, -0.25, 0.5);
+    model_trans *= RotateX(45);
+    model_trans *= Scale(0.125, 0.125, 0.5);
+    model_view = view_trans * model_trans;
+    set_colour(getRgbFloat(96), getRgbFloat(96), getRgbFloat(96));
+    drawCube();
+    
+    mvstack.pop(); // get rid of the copy of model_trans meant for this specific leg
+}
+
 /*********************************************************
  **********************************************************
  **********************************************************
@@ -500,14 +526,15 @@ void display(void)
     drawCylinder();
     */
     
-    model_trans = mvstack.pop();//pop, get identity, avoid stack overflow
+    // comment out so that we have 2 copies of identity on stack after the push a few lines down during ground plane modeling
+    // model_trans = mvstack.pop();//pop, get identity, avoid stack overflow
     
     // model ground plane
     model_trans *= Translate(0, -5, 0);
     mvstack.push(model_trans);
     model_trans *= Scale(20, 0.25, 20);
     model_view = view_trans * model_trans;
-    set_colour(getRgbFloat(1), getRgbFloat(166), getRgbFloat(17)); // forest green color
+    set_colour(getRgbFloat(131), getRgbFloat(181), getRgbFloat(106)); // forest green color
     drawCube();
     
     // model tree trunk
@@ -525,11 +552,72 @@ void display(void)
     // model tree sphere
     model_trans = mvstack.pop();
     model_trans *= Translate(0, 1, 0);
-    mvstack.push(model_trans);
+    // mvstack.push(model_trans); // don't push here because we don't need to save tree transformation after this point
     model_trans *= Scale(1.0);
     model_view = view_trans * model_trans;
     set_colour(0.8f, 0.0f, 0.0f);
     drawSphere();
+    
+    // model bee body
+    model_trans = mvstack.pop();
+    model_trans *= Translate(0, 0, 5);
+    mvstack.push(model_trans);
+    model_trans *= Scale(1.0, 0.5, 0.5);
+    model_view = view_trans * model_trans;
+    set_colour(getRgbFloat(96), getRgbFloat(96), getRgbFloat(96));
+    drawCube();
+    
+    // model bee head
+    model_trans = mvstack.pop();
+    mvstack.push(model_trans);
+    model_trans *= Translate(-0.75, 0, 0);
+    model_trans *= Scale(0.25);
+    model_view = view_trans * model_trans;
+    set_colour(getRgbFloat(101), getRgbFloat(70), getRgbFloat(128));
+    drawSphere();
+    
+    // model bee tail
+    model_trans = mvstack.pop();
+    mvstack.push(model_trans);
+    model_trans *= Translate(1.5, 0, 0);
+    model_trans *= Scale(1, 0.45, 0.45);
+    model_view = view_trans * model_trans;
+    set_colour(getRgbFloat(204), getRgbFloat(204), getRgbFloat(0));
+    drawSphere();
+    
+    // 1 thing on stack at this point
+    
+    // model bee legs
+    model_trans = mvstack.pop();
+    mvstack.push(model_trans); // save copy of model_trans at bee body center
+    
+    mvstack.push(model_trans); // local copy of model_trans for bee leg transformations
+    drawLeg(view_trans);
+    model_trans = mvstack.pop();
+    mvstack.push(model_trans); // put bee body center trans back on stack
+    
+    model_trans *= Translate(-0.25, 0, 0);
+    mvstack.push(model_trans);
+    drawLeg(view_trans);
+    model_trans = mvstack.pop();
+    mvstack.push(model_trans); // put bee body center trans back on stack
+    
+    model_trans *= Translate(0.25, 0, 0);
+    mvstack.push(model_trans);
+    drawLeg(view_trans);
+    model_trans = mvstack.pop();
+    mvstack.push(model_trans); // put bee body center trans back on stack
+    
+    /*
+     Generic modeling code
+     
+     model_trans = mvstack.pop();
+     model_trans *= Translate(0, 0, 0);
+     mvstack.push(model_trans);
+     model_trans *= Scale(1.0);
+     model_view = view_trans * model_trans;
+     drawCube();
+    */
     
     model_trans = mvstack.pop(); // avoid stack overflow
     
