@@ -423,10 +423,13 @@ void myReshape(int w, int h)
 // net 1 pop on mvstack (pop, push, push, pop, pop)
 void drawLeg(mat4 view_trans) {
     
+    float yOffset = 0.25 + (0.375 / (2 * sqrt(2)));
+    float zOffset = 0.25 + (0.625 / (2 * sqrt(2)));
+    
     // upper part of leg
     mat4 model_trans = mvstack.pop();
     mvstack.push(model_trans); // intentional
-    model_trans *= Translate(0, -0.4375, 0.5);
+    model_trans *= Translate(0, -yOffset, zOffset);
     model_trans *= RotateX(45);
     mvstack.push(model_trans);
     model_trans *= Scale(0.125, 0.125, 0.5);
@@ -434,9 +437,12 @@ void drawLeg(mat4 view_trans) {
     set_colour(getRgbFloat(96), getRgbFloat(96), getRgbFloat(96));
     drawCube();
     
+    yOffset = 0.25 / sqrt(2);
+    zOffset = 0.25 + (0.625 / (2 * sqrt(2)));
+    
     // lower part of leg
     model_trans = mvstack.pop();
-    model_trans *= Translate(0, -0.25, 0.5);
+    model_trans *= Translate(0, -yOffset, zOffset);
     model_trans *= RotateX(45);
     model_trans *= Scale(0.125, 0.125, 0.5);
     model_view = view_trans * model_trans;
@@ -565,7 +571,7 @@ void display(void)
     model_trans *= Scale(1.0, 0.5, 0.5);
     model_view = view_trans * model_trans;
     set_colour(getRgbFloat(96), getRgbFloat(96), getRgbFloat(96));
-    drawCube();
+    drawCube(); 
     
     // model bee head
     model_trans = mvstack.pop();
