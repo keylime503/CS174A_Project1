@@ -680,6 +680,35 @@ mat4 Translate( const vec4& v )
 {
     return Translate( v.x, v.y, v.z );
 }
+    
+//----------------------------------------------------------------------------
+//
+//  Reflection matrix generators
+//
+    
+inline
+mat4 ReflectXY()
+{
+    mat4 c;
+    c[2][2] = -1;
+    return c;
+}
+
+inline
+mat4 ReflectYZ()
+{
+    mat4 c;
+    c[0][0] = -1;
+    return c;
+}
+
+inline
+mat4 ReflectXZ()
+{
+    mat4 c;
+    c[1][1] = -1;
+    return c;
+}
 
 //----------------------------------------------------------------------------
 //
