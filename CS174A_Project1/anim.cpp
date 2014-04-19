@@ -580,7 +580,7 @@ void display(void)
     model_trans = mvstack.pop();
     mvstack.push(model_trans);
     model_trans *= Translate(1.5, 0, 0);
-    model_trans *= Scale(1, 0.45, 0.45);
+    model_trans *= Scale(1, 0.55, 0.45);
     model_view = view_trans * model_trans;
     set_colour(getRgbFloat(204), getRgbFloat(204), getRgbFloat(0));
     drawSphere();
@@ -628,10 +628,27 @@ void display(void)
     drawLeg(view_trans);
     model_trans = mvstack.pop();
     mvstack.push(model_trans); // put bee body center trans back on stack
-
+    
+    // model right bee wing
+    model_trans = mvstack.pop();
+    mvstack.push(model_trans);
+    model_trans *= Translate(0, 0.28125, 1.0);
+    model_trans *= Scale(0.5, 0.0625, 1.5);
+    model_view = view_trans * model_trans;
+    set_colour(getRgbFloat(120), getRgbFloat(120), getRgbFloat(120));
+    drawCube();
+    
+    // model left bee wing
+    model_trans = mvstack.pop();
+    mvstack.push(model_trans);
+    model_trans *= Translate(0, 0.28125, -1.0);
+    model_trans *= Scale(0.5, 0.0625, 1.5);
+    model_view = view_trans * model_trans;
+    set_colour(getRgbFloat(120), getRgbFloat(120), getRgbFloat(120));
+    drawCube();
     
     /*
-     Generic modeling code
+     Generic modeling code (w/ saving translation)
      
      model_trans = mvstack.pop();
      model_trans *= Translate(0, 0, 0);
