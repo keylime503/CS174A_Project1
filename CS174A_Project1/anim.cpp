@@ -564,9 +564,21 @@ void display(void)
     set_colour(0.8f, 0.0f, 0.0f);
     drawSphere();
     
+    float cosTime = cos(TIME);
+    float sinTime = sin(TIME);
+
+    // calculate bee offsets as a function of TIME
+    float beeXOffset = - sinTime * 5;
+    float beeZOffset = cosTime * 5;
+    
+    // calculate bee Y Rotation Angle as a function of TIME
+    float beeYRotationAngle = fmod((360.0 - (fmod(TIME / (2.0 * PI), 2.0 * PI)) * 360.0), 360);
+    printf("yAngle %f\n", beeYRotationAngle) ;
+    
     // model bee body
     model_trans = mvstack.pop();
-    model_trans *= Translate(0, 0, 5);
+    model_trans *= Translate(beeXOffset, 0, beeZOffset);
+    model_trans *= RotateY(beeYRotationAngle);
     mvstack.push(model_trans);
     model_trans *= Scale(1.0, 0.5, 0.5);
     model_view = view_trans * model_trans;
