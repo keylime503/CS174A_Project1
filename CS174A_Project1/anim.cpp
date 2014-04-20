@@ -82,6 +82,7 @@ float beeYOffset;
 float beeZOffset;
 
 float beeYRotationAngle;
+float beeWingAngle;
 
 //texture
 GLuint texture_cube;
@@ -612,6 +613,7 @@ void display(void)
     model_trans = mvstack.pop();
     mvstack.push(model_trans);
     model_trans *= Translate(0, 0.28125, 1.0);
+    model_trans *= RotateX(beeWingAngle);
     model_trans *= Scale(0.5, 0.0625, 1.5);
     model_view = view_trans * model_trans;
     set_colour(getRgbFloat(120), getRgbFloat(120), getRgbFloat(120));
@@ -621,6 +623,7 @@ void display(void)
     model_trans = mvstack.pop();
     mvstack.push(model_trans);
     model_trans *= Translate(0, 0.28125, -1.0);
+    model_trans *= RotateX(-beeWingAngle);
     model_trans *= Scale(0.5, 0.0625, 1.5);
     model_view = view_trans * model_trans;
     set_colour(getRgbFloat(120), getRgbFloat(120), getRgbFloat(120));
@@ -677,6 +680,9 @@ void idle(void)
         // calculate bee Y Rotation Angle as a function of TIME
         float d = TwoPI * TwoPI;
         beeYRotationAngle = fmod((360.0 - (fmod((TIME / d), TwoPI)) * 360.0), 360);
+        
+        // calculate bee wing angle as a function of TIME
+        beeWingAngle = sin(fmod((TIME / TwoPI), 1.0) * TwoPI) * 60;
         
         //Your code ends here
         
