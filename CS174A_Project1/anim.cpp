@@ -77,6 +77,12 @@ typedef char STR[STRLEN];
 //  TwoPi constant
 const GLfloat TwoPI = 2.0 * M_PI;
 
+float beeXOffset;
+float beeYOffset;
+float beeZOffset;
+
+float beeYRotationAngle;
+
 //texture
 GLuint texture_cube;
 GLuint texture_earth;
@@ -501,43 +507,6 @@ void display(void)
    Your drawing/modeling starts here
 ***************************************************************/
     
-    /*
-    //model sun
-    model_trans *= Scale(1.0);
-    model_view = view_trans * model_trans;
-    set_colour(0.8f, 0.0f, 0.0f);
-    drawSphere();
-    
-    model_trans = mvstack.pop();//pop, get identity
-    
-    
-    //model earth
-    model_trans *= RotateY(20.0*TIME); //rotation about the sun
-    model_trans *= Translate(5.0f, 0.0f, 0.0f);
-    mvstack.push(model_trans); //how the earth rotates about the sun
-                               //will have effect on moon's movement,
-                               //so we need to save this transformation on the stack
-    
-    model_trans *= RotateY(10.0*TIME);//self rotation of earth
-    model_view = view_trans * model_trans;
-    set_colour(0.0f, 0.0f, 0.8f);
-    drawCube();
-    
-    model_trans = mvstack.pop();//pop, get the transformation of how the earth rotates about the sun
-    
-    
-    //model moon
-    model_trans *= RotateY(100.0*TIME);
-    model_trans *= Translate(1.0f, 0.0f, 0.0f);
-    model_trans *= Scale(0.2);
-    model_view = view_trans * model_trans;
-    set_colour(0.8f, 0.0f, 0.8f);
-    drawCylinder();
-    */
-    
-    // comment out so that we have 2 copies of identity on stack after the push a few lines down during ground plane modeling
-    // model_trans = mvstack.pop();//pop, get identity, avoid stack overflow
-    
     // model ground plane
     model_trans *= Translate(0, -5, 0);
     mvstack.push(model_trans);
@@ -566,18 +535,6 @@ void display(void)
     model_view = view_trans * model_trans;
     set_colour(0.8f, 0.0f, 0.0f);
     drawSphere();
-    
-    float cosTime = cos(TIME / TwoPI);
-    float sinTime = sin(TIME / TwoPI);
-
-    // calculate bee offsets as a function of TIME
-    float beeXOffset = - sinTime * 5;
-    float beeYOffset = sin(fmod((TIME / TwoPI), 1.0) * TwoPI);
-    float beeZOffset = cosTime * 5;
-    
-    // calculate bee Y Rotation Angle as a function of TIME
-    float d = TwoPI * TwoPI;
-    float beeYRotationAngle = fmod((360.0 - (fmod((TIME / d), TwoPI)) * 360.0), 360);
     
     // model bee body
     model_trans = mvstack.pop();
@@ -669,17 +626,6 @@ void display(void)
     set_colour(getRgbFloat(120), getRgbFloat(120), getRgbFloat(120));
     drawCube();
     
-    /*
-     Generic modeling code (w/ saving translation)
-     
-     model_trans = mvstack.pop();
-     model_trans *= Translate(0, 0, 0);
-     mvstack.push(model_trans);
-     model_trans *= Scale(1.0);
-     model_view = view_trans * model_trans;
-     drawCube();
-    */
-    
     model_trans = mvstack.pop(); // avoid stack overflow
     
 /**************************************************************
@@ -720,6 +666,17 @@ void idle(void)
         
         //Your code starts here
         
+        float cosTime = cos(TIME / TwoPI);
+        float sinTime = sin(TIME / TwoPI);
+        
+        // calculate bee offsets as a function of TIME
+        beeXOffset = - sinTime * 5;
+        beeYOffset = sin(fmod((TIME / TwoPI), 1.0) * TwoPI);
+        beeZOffset = cosTime * 5;
+        
+        // calculate bee Y Rotation Angle as a function of TIME
+        float d = TwoPI * TwoPI;
+        beeYRotationAngle = fmod((360.0 - (fmod((TIME / d), TwoPI)) * 360.0), 360);
         
         //Your code ends here
         
