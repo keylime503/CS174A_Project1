@@ -539,6 +539,10 @@ void display(void)
     
     // model bee body
     model_trans = mvstack.pop();
+    if (beeZOffset == 0) {
+        
+        beeZOffset = 5.0;
+    }
     model_trans *= Translate(beeXOffset, beeYOffset, beeZOffset);
     model_trans *= RotateY(beeYRotationAngle);
     mvstack.push(model_trans);
