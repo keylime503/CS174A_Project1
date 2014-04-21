@@ -84,6 +84,9 @@ float beeZOffset;
 float beeYRotationAngle;
 float beeWingAngle;
 
+float beeYWingOffset;
+float beeZWingOffset;
+
 //texture
 GLuint texture_cube;
 GLuint texture_earth;
@@ -616,7 +619,7 @@ void display(void)
     // model right bee wing
     model_trans = mvstack.pop();
     mvstack.push(model_trans);
-    model_trans *= Translate(0, 0.28125, 1.0);
+    model_trans *= Translate(0, beeYWingOffset, beeZWingOffset);
     model_trans *= RotateX(beeWingAngle);
     model_trans *= Scale(0.5, 0.0625, 1.5);
     model_view = view_trans * model_trans;
@@ -626,7 +629,7 @@ void display(void)
     // model left bee wing
     model_trans = mvstack.pop();
     mvstack.push(model_trans);
-    model_trans *= Translate(0, 0.28125, -1.0);
+    model_trans *= Translate(0, beeYWingOffset, -beeZWingOffset);
     model_trans *= RotateX(-beeWingAngle);
     model_trans *= Scale(0.5, 0.0625, 1.5);
     model_view = view_trans * model_trans;
@@ -688,6 +691,10 @@ void idle(void)
         // calculate bee wing angle as a function of TIME
         beeWingAngle = sin(fmod((TIME / TwoPI), 1.0) * TwoPI) * 60;
         
+        // calculate bee wing offsets as a function of beeWingAngle
+        beeYWingOffset = 0.25 - (0.75 * sin(beeWingAngle * DegreesToRadians)) + (0.03125 * cos(beeWingAngle * DegreesToRadians));
+        beeZWingOffset = 0.25 + (0.75 * cos(beeWingAngle * DegreesToRadians)) + (0.03125 * sin(beeWingAngle * DegreesToRadians));
+
         //Your code ends here
         
         printf("TIME %f\n", TIME) ;
