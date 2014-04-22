@@ -87,6 +87,17 @@ float beeWingAngle;
 float beeYWingOffset;
 float beeZWingOffset;
 
+float beeUpperLegAngle;
+float beeLowerLegAngle;
+
+float beeYUpperLegOffset;
+float beeZUpperLegOffset;
+
+float beeYLowerLegOffset;
+float beeZLowerLegOffset;
+
+float treeRotationAngle;
+
 //texture
 GLuint texture_cube;
 GLuint texture_earth;
@@ -436,33 +447,38 @@ void myReshape(int w, int h)
 // net 1 pop on mvstack (pop, push, push, pop, pop)
 void drawLeg(mat4 view_trans) {
     
-    float yOffset = 0.25 + (0.375 / (2 * sqrt(2)));
-    float zOffset = 0.25 + (0.625 / (2 * sqrt(2)));
-    
     // upper part of leg
     mat4 model_trans = mvstack.pop();
     mvstack.push(model_trans); // intentional
-    model_trans *= Translate(0, -yOffset, zOffset);
-    model_trans *= RotateX(45);
+    model_trans *= Translate(0, beeYUpperLegOffset, beeZUpperLegOffset);
+    model_trans *= RotateX(90 + beeUpperLegAngle);
     mvstack.push(model_trans);
     model_trans *= Scale(0.125, 0.125, 0.5);
     model_view = view_trans * model_trans;
     set_colour(getRgbFloat(96), getRgbFloat(96), getRgbFloat(96));
     drawCube();
     
-    yOffset = 0.25 / sqrt(2);
-    zOffset = 0.25 + (0.625 / (2 * sqrt(2)));
-    
     // lower part of leg
     model_trans = mvstack.pop();
-    model_trans *= Translate(0, -yOffset, zOffset);
-    model_trans *= RotateX(45);
+    model_trans *= Translate(0, beeZLowerLegOffset, -beeYLowerLegOffset);
+    model_trans *= RotateX(beeLowerLegAngle);
     model_trans *= Scale(0.125, 0.125, 0.5);
     model_view = view_trans * model_trans;
     set_colour(getRgbFloat(96), getRgbFloat(96), getRgbFloat(96));
     drawCube();
     
     mvstack.pop(); // get rid of the copy of model_trans meant for this specific leg
+}
+
+// net 1 pop on mvstack
+void drawTreeConnector(mat4 view_trans, float yOffset, float radius) {
+    
+    mat4 model_trans = mvstack.pop();
+    model_trans *= Translate(0, yOffset, 0);
+    model_trans *= Scale(radius, radius, radius);
+    model_view = view_trans * model_trans;
+    set_colour(getRgbFloat(160), getRgbFloat(82), getRgbFloat(45));
+    drawSphere();
 }
 
 /*********************************************************
@@ -522,13 +538,21 @@ void display(void)
     // model tree trunk
     for (int i=0; i < 8; i++) {
         
+        float treeRotationAngleInRads = treeRotationAngle * i * DegreesToRadians;
+        
         model_trans = mvstack.pop();
-        model_trans *= Translate(0, 0.75, 0);
+        model_trans *= Translate(-(0.375 * sin(treeRotationAngleInRads)), (0.375 + (0.375 * cos(treeRotationAngleInRads))), 0);
+        model_trans *= RotateZ(treeRotationAngle * i);
         mvstack.push(model_trans);
         model_trans *= Scale(0.25, 0.75, 0.25);
         model_view = view_trans * model_trans;
         set_colour(getRgbFloat(160), getRgbFloat(82), getRgbFloat(45));
         drawCube();
+        
+        model_trans = mvstack.pop();
+        mvstack.push(model_trans);
+        mvstack.push(model_trans); // intentional, copy for drawTreeConnector() to throw away
+        drawTreeConnector(view_trans, 0.375, 0.125);
     }
     
     // model tree sphere
@@ -694,6 +718,21 @@ void idle(void)
         // calculate bee wing offsets as a function of beeWingAngle
         beeYWingOffset = 0.25 - (0.75 * sin(beeWingAngle * DegreesToRadians)) + (0.03125 * cos(beeWingAngle * DegreesToRadians));
         beeZWingOffset = 0.25 + (0.75 * cos(beeWingAngle * DegreesToRadians)) + (0.03125 * sin(beeWingAngle * DegreesToRadians));
+        
+        // calculate bee leg angles as a funcion of TIME
+        beeUpperLegAngle = ((sin(fmod((TIME / TwoPI), 1.0) * TwoPI) + 1.0) / 2.0) * 10;
+        beeLowerLegAngle = (((sin(fmod((TIME / TwoPI), 1.0) * TwoPI) + 1.0) / 2.0) * 10);
+        
+        // calculate bee upper leg offsets as a function of beeUpperLegAngle
+        beeYUpperLegOffset = -0.25 - (0.25 * cos(beeUpperLegAngle * DegreesToRadians)) - (0.0625 * sin(beeUpperLegAngle * DegreesToRadians));
+        beeZUpperLegOffset = 0.25 - (0.25 * sin(beeUpperLegAngle * DegreesToRadians)) + (0.0625 * cos(beeUpperLegAngle * DegreesToRadians));
+        
+        // calculate bee lower leg offsets as a function of beeLowerLegAngle
+        beeYLowerLegOffset = -0.25 - (0.25 * cos(beeLowerLegAngle * DegreesToRadians)) - (0.0625 * sin(beeLowerLegAngle * DegreesToRadians));
+        beeZLowerLegOffset = -0.0625 - (0.25 * sin(beeLowerLegAngle * DegreesToRadians)) + (0.0625 * cos(beeLowerLegAngle * DegreesToRadians));
+        
+        // calculate tree rotation angle as a function of TIME
+        treeRotationAngle = sin(fmod(((TIME / TwoPI) / 4), 1.0) * TwoPI) * 1.5;
 
         //Your code ends here
         
