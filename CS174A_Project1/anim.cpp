@@ -450,6 +450,14 @@ void drawLeg(mat4 view_trans) {
     // upper part of leg
     mat4 model_trans = mvstack.pop();
     mvstack.push(model_trans); // intentional
+    if (beeYUpperLegOffset == 0) {
+        
+        beeYUpperLegOffset = -0.5;
+    }
+    if (beeZUpperLegOffset == 0) {
+        
+        beeZUpperLegOffset = 0.3125;
+    }
     model_trans *= Translate(0, beeYUpperLegOffset, beeZUpperLegOffset);
     model_trans *= RotateX(90 + beeUpperLegAngle);
     mvstack.push(model_trans);
@@ -460,6 +468,14 @@ void drawLeg(mat4 view_trans) {
     
     // lower part of leg
     model_trans = mvstack.pop();
+    if (beeYLowerLegOffset == 0) {
+        
+        beeYLowerLegOffset = -0.5;
+    }
+    if (beeZLowerLegOffset == 0) {
+        
+        beeZLowerLegOffset = 0.0;
+    }
     model_trans *= Translate(0, beeZLowerLegOffset, -beeYLowerLegOffset);
     model_trans *= RotateX(beeLowerLegAngle);
     model_trans *= Scale(0.125, 0.125, 0.5);
@@ -643,6 +659,14 @@ void display(void)
     // model right bee wing
     model_trans = mvstack.pop();
     mvstack.push(model_trans);
+    if (beeYWingOffset == 0) {
+        
+        beeYWingOffset = 0.28125;
+    }
+    if (beeZWingOffset == 0) {
+        
+        beeZWingOffset = 1.0;
+    }
     model_trans *= Translate(0, beeYWingOffset, beeZWingOffset);
     model_trans *= RotateX(beeWingAngle);
     model_trans *= Scale(0.5, 0.0625, 1.5);
@@ -713,15 +737,15 @@ void idle(void)
         beeYRotationAngle = fmod((360.0 - (fmod((TIME / d), TwoPI)) * 360.0), 360);
         
         // calculate bee wing angle as a function of TIME
-        beeWingAngle = sin(fmod((TIME / TwoPI), 1.0) * TwoPI) * 60;
+        beeWingAngle = sin(fmod((TIME / TwoPI), 1.0) * TwoPI) * 45;
         
         // calculate bee wing offsets as a function of beeWingAngle
         beeYWingOffset = 0.25 - (0.75 * sin(beeWingAngle * DegreesToRadians)) + (0.03125 * cos(beeWingAngle * DegreesToRadians));
         beeZWingOffset = 0.25 + (0.75 * cos(beeWingAngle * DegreesToRadians)) + (0.03125 * sin(beeWingAngle * DegreesToRadians));
         
         // calculate bee leg angles as a funcion of TIME
-        beeUpperLegAngle = ((sin(fmod((TIME / TwoPI), 1.0) * TwoPI) + 1.0) / 2.0) * 10;
-        beeLowerLegAngle = (((sin(fmod((TIME / TwoPI), 1.0) * TwoPI) + 1.0) / 2.0) * 10);
+        beeUpperLegAngle = (((sin(fmod((TIME / TwoPI), 1.0) * TwoPI) + 1.0) / 2.0) * 10);
+        beeLowerLegAngle = (((sin(fmod((TIME / TwoPI), 1.0) * TwoPI) + 1.0) / 2.0) * 7.5);
         
         // calculate bee upper leg offsets as a function of beeUpperLegAngle
         beeYUpperLegOffset = -0.25 - (0.25 * cos(beeUpperLegAngle * DegreesToRadians)) - (0.0625 * sin(beeUpperLegAngle * DegreesToRadians));
@@ -732,7 +756,7 @@ void idle(void)
         beeZLowerLegOffset = -0.0625 - (0.25 * sin(beeLowerLegAngle * DegreesToRadians)) + (0.0625 * cos(beeLowerLegAngle * DegreesToRadians));
         
         // calculate tree rotation angle as a function of TIME
-        treeRotationAngle = sin(fmod(((TIME / TwoPI) / 4), 1.0) * TwoPI) * 1.5;
+        treeRotationAngle = sin(fmod(((TIME / TwoPI) / 4), 1.0) * TwoPI) * 1.0;
 
         //Your code ends here
         
